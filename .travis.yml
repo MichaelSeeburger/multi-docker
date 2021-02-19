@@ -7,7 +7,7 @@ before_install:
 
 
 script:
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password_stdin
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   - docker run -e CI=true mac/react-test npm test -- --coverage
 
 after_success:
@@ -16,7 +16,7 @@ after_success:
   - docker build -t mac/multi-server ./server
   - docker build -t mac/multi-worker ./worker
 
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password_stdin
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   - docker push -t mac/multi-client
   - docker push -t mac/multi-nginx
   - docker push -t mac/multi-server
