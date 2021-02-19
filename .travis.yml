@@ -7,7 +7,6 @@ before_install:
 
 
 script:
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   - docker run -e CI=true mac/react-test npm test -- --coverage
 
 after_success:
