@@ -20,3 +20,5 @@ after_success:
   - docker push -t mac/multi-nginx
   - docker push -t mac/multi-server
   - docker push -t mac/multi-worker
+
+  
