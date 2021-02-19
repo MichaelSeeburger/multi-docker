@@ -1,0 +1,22 @@
+sudo: required
+services:
+    - docker
+  
+before_install:
+    - docker build -t mac/react_test -f ./client/Dockerfile.dev ./client
+
+
+script:
+  - docker run -e CI=true mac/react-test npm test -- --coverage
+
+after_success:
+  - docker build -t mac/multi-client ./client
+  - docker build -t mac/multi-nginx ./nginx
+  - docker build -t mac/multi-server ./server
+  - docker build -t mac/multi-worker ./worker
+
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password_stdin
+  - docker push -t mac/multi-client
+  - docker push -t mac/multi-nginx
+  - docker push -t mac/multi-server
+  - docker push -t mac/multi-worker
